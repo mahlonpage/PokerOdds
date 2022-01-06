@@ -47,61 +47,72 @@ public class handValueCalculator {
                 spadeCards.add(card);
         }
 
+        //creates an ArrayList of the number of each value of the cards present.
+        ArrayList<Integer> numOfEachValue = this.numOfEachValue(cardValues);
+        Collections.sort(numOfEachValue);
+
         //Now that everything is sorted. Check for poker hands in descending order.
 
         //Straight Flush
-        ArrayList<Integer> flushCards = new ArrayList();
-        if (clubCards.size() == 5) {
+        ArrayList<Integer> flushCardsValues = new ArrayList();
+        if (clubCards.size() >= 5) {
             for (Card card : clubCards)
-                flushCards.add(card.getValue().toInt());
+                flushCardsValues.add(card.getValue().toInt());
         }
-        if (diamondCards.size() == 5) {
+        if (diamondCards.size() >= 5) {
             for (Card card : clubCards)
-                flushCards.add(card.getValue().toInt());
+                flushCardsValues.add(card.getValue().toInt());
         }
-        if (heartCards.size() == 5) {
+        if (heartCards.size() >= 5) {
             for (Card card : clubCards)
-                flushCards.add(card.getValue().toInt());
+                flushCardsValues.add(card.getValue().toInt());
         }
-        if (spadeCards.size() == 5) {
+        if (spadeCards.size() >= 5) {
             for (Card card : clubCards)
-                flushCards.add(card.getValue().toInt());
+                flushCardsValues.add(card.getValue().toInt());
         }
 
-        if (!flushCards.isEmpty())  {
-            Collections.sort(flushCards);
-            if (flushCards.get(4) - flushCards.get(0) == 4) {
-                if (flushCards.get(4) == Value.ACE.toInt())
+        if (!flushCardsValues.isEmpty())  {
+            Collections.sort(flushCardsValues);
+            if (this.checkStraight(flushCardsValues)) {
+                if (flushCardsValues.get(0) == Value.TEN.toInt())
                     return RankType.ROYAL_FLUSH;
-
                 return RankType.STRAIGHT_FLUSH;
             }
-
-            //edge case where ace is used as low card in the flush.
-            if (flushCards.get(4) == Value.ACE.toInt() && flushCards.get(3) == Value.FIVE.toInt())
-                return RankType.STRAIGHT_FLUSH;
         }
 
 
         //Quads
-        ArrayList<Integer> numOfEachValue = this.numOfEachValue(cardValues);
         Collections.sort(numOfEachValue);
         if (numOfEachValue.get(numOfEachValue.size() - 1) == 4)
             return RankType.QUADS;
 
-
         //Full House
+        if (numOfEachValue.get(0) == 2 && numOfEachValue.get(1) == 3)
+            return RankType.FULL_HOUSE;
+
+        //Flush
+        if (flushCardsValues.size() != 0)
+            return RankType.FLUSH;
+
+        //Straight
+        if (checkStraight(cardValues))
+            return RankType.STRAIGHT;
 
 
+        //Trips
+        if (numOfEachValue.get(numOfEachValue.size() - 1) == 3)
+            return RankType.TRIPS;
 
+        //Two Pair and Pair
+        if (numOfEachValue.get(numOfEachValue.size() - 1) == 2) {
+            if (numOfEachValue.get(numOfEachValue.size() - 2) == 2)
+                return RankType.TWO_PAIR;
+            return RankType.PAIR;
+        }
 
-
-
-
-
-
-
-        return null;
+        //High Card
+        return RankType.HIGH_CARD;
     }
 
     //Takes cards and returns an arraylist with the number of each type of card present.
@@ -112,7 +123,7 @@ public class handValueCalculator {
         int numOfCurrentType;
         numOfCurrentType = 1;
         for (int i = 0; i < 5; i++) {
-            if (values.get(i).equals(values.get(i + 1)))
+            if (i != 4 && values.get(i).equals(values.get(i + 1)))
                 numOfCurrentType++;
             else {
                 numOfEachValue.add(numOfCurrentType);
@@ -121,6 +132,18 @@ public class handValueCalculator {
         }
         Collections.sort(numOfEachValue);
         return numOfEachValue;
+    }
+
+    //checks if the inputted hand is a straight
+    //TODO make this work for 7 cards
+    private boolean checkStraight (ArrayList<Integer> hand)    {
+        Collections.sort(hand);
+        if (hand.get(4) - hand.get(0) == 4)
+            return true;
+        //edge case where ace is used as low card in the flush.
+        if (hand.get(4) == Value.ACE.toInt() && hand.get(3) == Value.FIVE.toInt())
+            return true;
+        return false;
     }
 }
 

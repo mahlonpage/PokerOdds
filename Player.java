@@ -6,5 +6,6 @@ public class Player {
 
     public Player(ArrayList<Card> hand) {
         handValueCalculator calc = new handValueCalculator(hand);
+        System.out.println(calc.getRank());
     }
 }
