@@ -101,7 +101,7 @@ public class handValueCalculator {
                     }
                     i++;
                 }
-                //Adds cards in descending order to the hand.
+                //Add cards in descending order to the hand.
                 bestFive[0] = new Card(suit * 4 + innerRank - 4);
                 bestFive[1] = new Card(suit * 4 + innerRank - 3);
                 bestFive[2] = new Card(suit * 4 + innerRank - 2);
