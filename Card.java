@@ -1,20 +1,33 @@
 package PokerOdds;
 
+//Cards are represented as ints 0-51
+//Cards go from 2-A in alphabetically suit order
+//Ex: 3 of clubs is 1 and 7 of hearts is 31
 public class Card {
 
-    private Value myValue;
-    private Suit mySuit;
+    private int myValue;
+    private int mySuit;
+    private int me;
 
-    public Card(Value value, Suit suit) {
-        this.myValue = value;
-        this.mySuit = suit;
+    public Card(int card) {
+        this.myValue = card % 13;
+        this.mySuit = card / 13;
+        this.me = card;
+        if (card < 0 || card > 51) {
+            this.myValue = -1;
+            this.mySuit = -1;
+        }
     }
 
-    public Value getValue() {
+    public int getValue() {
         return this.myValue;
     }
 
-    public Suit getSuit() {
+    public int getSuit() {
         return this.mySuit;
+    }
+
+    public int toInt()  {
+        return this.me;
     }
 }

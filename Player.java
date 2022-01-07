@@ -1,11 +1,18 @@
 package PokerOdds;
 
-import java.util.ArrayList;
-
 public class Player {
 
-    public Player(ArrayList<Card> hand) {
-        handValueCalculator calc = new handValueCalculator(hand);
-        System.out.println(calc.getRank());
+    private Card card1;
+    private Card card2;
+
+    public Player(Card card1, Card card2)   {
+        this.card1 = card1;
+        this.card2 = card2;
+    }
+
+    public Card getCard(boolean isCard1)  {
+        if (isCard1)
+            return this.card1;
+        return this.card2;
     }
 }
