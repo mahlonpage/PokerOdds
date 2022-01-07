@@ -14,8 +14,10 @@ public class Game {
         Player player1 = new Player(deck.get(0), deck.get(2));
         Player player2 = new Player(deck.get(1), deck.get(3));
         //removes the dealt cards from the deck
-        System.out.println("Player 1: " + deck.get(0).getValue() + " " + deck.get(0).getSuit() + " | " + deck.get(2).getValue() + " " + deck.get(2).getSuit() + " ");
-        System.out.println("Player 2: " + deck.get(1).getValue() + " " + deck.get(1).getSuit() + " | " + deck.get(3).getValue() + " " + deck.get(3).getSuit() + " ");
+        System.out.println("Player 1: " + deck.get(0).getValueString() + deck.get(0).getSuitString() + " " + deck.get(2).getValueString() + deck.get(2).getSuitString() + " ");
+        System.out.println("-------");
+        System.out.println("Player 2: " + deck.get(1).getValueString() + deck.get(1).getSuitString() + " " + deck.get(3).getValueString() + deck.get(3).getSuitString() + " ");
+        System.out.println("-------");
 
 
         ArrayList<Card> p1Hand = new ArrayList<>();
@@ -82,9 +84,12 @@ public class Game {
                 }
             }
         }
-        System.out.println("Player 1 wins " + numP1Wins + " times!");
-        System.out.println("Player 2 wins " + numP2Wins + " times!");
-        System.out.println("There is a tie " + numTies + " times!");
+        float p1WinRate = (numP1Wins * 100.0f) / (numP1Wins + numP2Wins + numTies);
+        float p2WinRate = (numP2Wins * 100.0f) / (numP1Wins + numP2Wins + numTies);
+        float tieRate = (numTies * 100.0f) / (numP1Wins + numP2Wins + numTies);
+        System.out.println("Player 1 wins " + numP1Wins + " times! | " + p1WinRate + "% Win Rate");
+        System.out.println("Player 2 wins " + numP2Wins + " times! | " + p2WinRate + "% Win Rate");
+        System.out.println("There is a tie " + numTies + " times! | " + tieRate + "% Tie Rate");
     }
 
     private void fillDeck(ArrayList<Card> deck) {
