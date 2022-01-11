@@ -9,9 +9,6 @@ public class Game {
         ArrayList<Card> deck = new ArrayList();
         this.fillDeck(deck);
         Collections.shuffle(deck);
-        //adds Players to the Poker game and deals two cards to each.
-        new Player(deck.get(0), deck.get(2));
-        new Player(deck.get(1), deck.get(3));
         System.out.println("Player 1: " + deck.get(0).getValueString() + deck.get(0).getSuitString() + " " + deck.get(2).getValueString() + deck.get(2).getSuitString() + " ");
         System.out.println("");
         System.out.println("Player 2: " + deck.get(1).getValueString() + deck.get(1).getSuitString() + " " + deck.get(3).getValueString() + deck.get(3).getSuitString() + " ");
@@ -20,6 +17,7 @@ public class Game {
 
         ArrayList<Card> p1Hand = new ArrayList<>();
         ArrayList<Card> p2Hand = new ArrayList<>();
+        //Note: Only used arraylists for hand. If I expand this into more I will make a Player class.
         p1Hand.add(deck.get(0));
         p2Hand.add(deck.get(1));
         p1Hand.add(deck.get(2));
