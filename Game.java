@@ -9,11 +9,9 @@ public class Game {
         ArrayList<Card> deck = new ArrayList();
         this.fillDeck(deck);
         Collections.shuffle(deck);
-        ArrayList<Card> cards = new ArrayList();
         //adds Players to the Poker game and deals two cards to each.
-        Player player1 = new Player(deck.get(0), deck.get(2));
-        Player player2 = new Player(deck.get(1), deck.get(3));
-        //removes the dealt cards from the deck
+        new Player(deck.get(0), deck.get(2));
+        new Player(deck.get(1), deck.get(3));
         System.out.println("Player 1: " + deck.get(0).getValueString() + deck.get(0).getSuitString() + " " + deck.get(2).getValueString() + deck.get(2).getSuitString() + " ");
         System.out.println("");
         System.out.println("Player 2: " + deck.get(1).getValueString() + deck.get(1).getSuitString() + " " + deck.get(3).getValueString() + deck.get(3).getSuitString() + " ");
@@ -26,6 +24,7 @@ public class Game {
         p2Hand.add(deck.get(1));
         p1Hand.add(deck.get(2));
         p2Hand.add(deck.get(3));
+        //removes the dealt cards from the deck
         deck.subList(0, Constants.numPlayers * 2).clear();
         ArrayList<Card> p1TotalHand = new ArrayList<>();
         ArrayList<Card> p2TotalHand = new ArrayList<>();
